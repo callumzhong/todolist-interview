@@ -52,12 +52,14 @@ export default function useTodo() {
     })
   }
 
+  // 下載 LocalStorage 本地狀態同步
   const uploadLocalStorage = useCallback((todo: TodoType[]) => {
     setData(todo)
   }, [])
 
   const { onSet } = useLocalStorage<TodoType[]>('todo', uploadLocalStorage)
 
+  // 上傳 LocalStorage 同步
   useEffect(() => {
     if (isUploadLocalStorage) {
       onSet(data)

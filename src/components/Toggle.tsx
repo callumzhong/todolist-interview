@@ -1,12 +1,8 @@
-import { MouseEventHandler, useRef } from 'react'
+type ToggleProps = {
+  onClick: (isChecked: boolean) => void
+}
 
-type ToggleProps = void
-
-export default function Toggle({
-  onClick
-}: {
-  onClick: (isChecked: boolean) => ToggleProps
-}) {
+export default function Toggle({ onClick }: ToggleProps) {
   return (
     <label
       htmlFor="AcceptConditions"
