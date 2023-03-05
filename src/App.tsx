@@ -1,7 +1,9 @@
-import './App.css'
+import { TodoList } from 'components/TodoList'
 
-function App() {
-  return <div className="App"></div>
+export default function App() {
+  return (
+    <div className="mt-20 px-6">
+      <TodoList />
+    </div>
+  )
 }
-
-export default App
