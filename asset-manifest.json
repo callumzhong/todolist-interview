@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/todolist-interview/static/css/main.63bb3dfc.css",
+    "main.js": "/todolist-interview/static/js/main.581d55a7.js",
+    "index.html": "/todolist-interview/index.html",
+    "main.63bb3dfc.css.map": "/todolist-interview/static/css/main.63bb3dfc.css.map",
+    "main.581d55a7.js.map": "/todolist-interview/static/js/main.581d55a7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.63bb3dfc.css",
+    "static/js/main.581d55a7.js"
+  ]
+}
