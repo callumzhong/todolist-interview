@@ -1,9 +1,25 @@
-export default function Toggle() {
+import { MouseEventHandler, useRef } from 'react'
+
+type ToggleProps = void
+
+export default function Toggle({
+  onClick
+}: {
+  onClick: (isChecked: boolean) => ToggleProps
+}) {
   return (
     <label
       htmlFor="AcceptConditions"
       className="relative h-6 w-12 cursor-pointer">
-      <input type="checkbox" id="AcceptConditions" className="peer sr-only" />
+      <input
+        onChange={(e) => {
+          const isChecked = e.target.checked
+          onClick(isChecked)
+        }}
+        type="checkbox"
+        id="AcceptConditions"
+        className="peer sr-only"
+      />
 
       <span className="absolute inset-0 rounded-full bg-white transition peer-checked:bg-[#cbd3f3]"></span>
 
@@ -11,6 +27,3 @@ export default function Toggle() {
     </label>
   )
 }
-
-
-
