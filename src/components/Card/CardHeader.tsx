@@ -5,5 +5,9 @@ type CardHeaderProps = {
 }
 
 export default function CardHeader({ children }: CardHeaderProps) {
-  return <div className="border-b-2 border-[#b9c2d2] pb-3">{children}</div>
+  return (
+    <div className="ml-5 mr-8 mt-4 border-b-2 border-[#b9c2d2] pb-3">
+      {children}
+    </div>
+  )
 }

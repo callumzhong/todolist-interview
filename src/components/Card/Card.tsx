@@ -9,7 +9,7 @@ export default function Card({ children }: CardProps) {
   return (
     <div
       className={clsx(
-        'p-5 mx-auto bg-gradient-to-b from-zumthor to-titan-white'
+        'mx-auto max-w-md bg-gradient-to-b from-zumthor to-titan-white py-5'
       )}>
       {children}
     </div>
