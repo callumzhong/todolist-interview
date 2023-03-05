@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+## Project Name
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+TodoList Interview 題目
 
-## Available Scripts
+## Technologies
 
-In the project directory, you can run:
+- React
+- Typescript
+- Tailwind CSS
+- React Hook Form
 
-### `npm start`
+## Project Screen Shot(s)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation and Setup Instructions
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+下載專案前，請先安裝 `node` 與 `npm`
 
-### `npm test`
+node: v18.14.2
+npm: v9.5.0
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+git clone https://github.com/callumzhong/todolist-interview.git
+```
 
-### `npm run build`
+安裝:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm install`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+啟動伺服器:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm start`
 
-### `npm run eject`
+訪問應用程式:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`localhost:3000`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Reflection
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+這是由 React TypeScript 撰寫的面試題目，架構上可以從元件資料夾結構觀察大致上可以區分兩個部分
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+功能元件
 
-## Learn More
+- TodoList
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+UI 元件
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Card
+- Alert
+- ProgressBar
+- Toggle
+- Icons
+
+TodoList 內有私有元件 Header, Body, Footer 這些沒有獨立檔案，TodoListForm 則是專注處理 todo 表單提交，未來若有其他樣式的 TodoList 則 TodoListForm 是可以共用的。
+
+```tsx
+export default function TodoList() {
+  const bodyRef = useRef<BodyRefProps>(null)
+  const [isEnableScroll, setIsEnableScroll] = useState(false)
+  const { todo, onAdd, onDelete, onFinish, onSort } = useTodo()
+  const submitHandler: SubmitHandler<TodoType> = (data) => {
+    onAdd(data)
+    setIsEnableScroll(true)
+  }
+
+  useEffect(() => {
+    // 由 isEnableScroll State 批次更新後表示以渲染 DOM 再滾動至底部
+    if (isEnableScroll) {
+      bodyRef.current?.scrollBottom()
+      setIsEnableScroll(false)
+    }
+  }, [todo, isEnableScroll])
+
+  return (
+    <Card>
+      <Header />
+      <Body ref={bodyRef} data={todo} onFinish={onFinish} onDelete={onDelete} />
+      <Footer onSort={onSort} onSubmit={submitHandler} />
+    </Card>
+  )
+}
+```
+
+接下來 Hooks 嘗試使用 T 泛型組合 useTodo , useLocalStorage
+，盡可能的拆分工作職責
+
+```tsx
+// 下載 LocalStorage 本地狀態同步
+const uploadLocalStorage = useCallback((todo: TodoType[]) => {
+  setData(todo)
+}, [])
+
+const { onSet } = useLocalStorage<TodoType[]>('todo', uploadLocalStorage)
+
+// 上傳 LocalStorage 同步
+useEffect(() => {
+  if (isUploadLocalStorage) {
+    onSet(data)
+  }
+}, [data, isUploadLocalStorage, onSet])
+```
