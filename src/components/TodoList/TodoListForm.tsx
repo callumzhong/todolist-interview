@@ -22,7 +22,7 @@ export default function TodoListForm({ onSubmit }: TodoListFormProps) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <label
         htmlFor="add-todo-list"
-        className="mb-1 block text-sm text-[#828fa8]">
+        className="mb-1 block text-sm text-[#949fbc]">
         Add to list
       </label>
 
